@@ -1,0 +1,8 @@
+
+{
+  "name": "Nexus Chat: Secure P2P Messenger",
+  "description": "A launch-ready, peer-to-peer (P2P), serverless web chat application that demonstrates end-to-end encryption, WebRTC concepts, and unique user cryptographic identity. Users communicate securely without a centralized server.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

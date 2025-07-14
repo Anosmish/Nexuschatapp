@@ -1,4 +1,4 @@
-name: Build APK & EXE
+name: Build App
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -21,32 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build web app
+      - name: Build project
         run: npm run build
 
-      - name: Install Capacitor & Electron
-        run: |
-          npm install @capacitor/core @capacitor/cli
-          npx cap init NexusChat com.nexus.chat --web-dir=dist
-          npx cap add android || true
-          npm install electron electron-builder
-          npx cap add electron || true
-
-      - name: Build APK
-        run: |
-          npx cap copy android
-          cd android
-          ./gradlew assembleDebug || ./gradlew assembleRelease
-
-      - name: Build EXE
-        run: |
-          npx cap copy electron
-          npx electron-builder --win --x64
-
-      - name: Upload Artifacts
+      - name: Upload build folder
         uses: actions/upload-artifact@v4
         with:
-          name: App Builds
-          path: |
-            android/app/build/outputs/apk/**/*.apk
-            dist/*.exe
+          name: web-build
+          path: dist
